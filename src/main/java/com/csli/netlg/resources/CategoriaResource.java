@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value="/categorias")
+@RequestMapping(value="/categorias") //endpoint
 public class CategoriaResource {
 	
-	@RequestMapping(method=RequestMethod.GET)
+	@RequestMapping(method=RequestMethod.GET) //verbos http
 	public String listar() {
 		return "Celso Gomes";
 	}
