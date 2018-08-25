@@ -1,6 +1,12 @@
 package com.csli.netlg.services;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.csli.netlg.domain.Categoria;
+import com.csli.netlg.repositories.CategoriaRepository;
 
 @Service
 public class CategoriaService {
@@ -11,8 +17,8 @@ public class CategoriaService {
 	private CategoriaRepository repo;
 	
 	public Categoria buscar(Integer id) {
-		Categoria obj = repo.findOne(id);
-		return obj;
+		Optional<Categoria> obj = repo.findById(id);
+		return obj.orElse(null);
 	}
 
 }
