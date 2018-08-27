@@ -7,22 +7,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.csli.netlg.domain.Categoria;
-import com.csli.netlg.services.CategoriaService;
+import com.csli.netlg.domain.Cliente;
+import com.csli.netlg.services.ClienteService;
 
 import javassist.tools.rmi.ObjectNotFoundException;
 
 @RestController
-@RequestMapping(value="/categorias") //endpoint
-public class CategoriaResource {
+@RequestMapping(value="/clientes") //endpoint
+public class ClienteResource {
 	
 	@Autowired
-	private CategoriaService service;
+	private ClienteService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET) //verbos http
 	public ResponseEntity<?> find(@PathVariable Integer id) throws ObjectNotFoundException {
 		
-		Categoria obj = service.buscar(id);
+		Cliente obj = service.buscar(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
