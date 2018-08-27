@@ -49,6 +49,8 @@ public class NetlgApplication implements CommandLineRunner {
 	private PedidoRepository rPedido;
 	@Autowired
 	private PagamentoRepository rPagamento;
+	@Autowired
+	private ItemPedidoRepository rItemPedido;
 	
 	
 	/**URL banco HD2: http://localhost:8080/h2-console/login.jsp?jsessionid=9df1fa988dac1214225c9ba37f2f6269 */
@@ -119,6 +121,15 @@ public class NetlgApplication implements CommandLineRunner {
 		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
 		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
 		
+		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		rItemPedido.saveAll(Arrays.asList(ip1, ip2, ip3));
 		
 		
 	}
