@@ -25,5 +25,15 @@ public class CategoriaResource {
 		Categoria obj = service.buscar(id);
 		return ResponseEntity.ok().body(obj);
 	}
+	
+	/** @RequestBody essa anotação converte o json em objeto java automaticamente */
+	@RequestMapping(method=RequestMethod.POST)
+	public ResponseEntity<Void> insert(@RequestBody Categoria obj){
+		obj  = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder
+				.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		
+		return ResponseEntity.created(uri).build();
+	}
 
 }
