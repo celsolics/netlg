@@ -30,6 +30,7 @@ public abstract class Pagamento implements Serializable {
 	/***
 	 * Nesse trecho o id do pagamento n é gerado automaticamente e sim pelo id do pedido
 	 */
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="pedido_id")
 	@MapsId

@@ -32,13 +32,14 @@ public class Produto implements Serializable {
 	/**
 	 * Relacionamento muitos para muitos tanto faz fazer aqui ou em categorias esse tipo de anotação
 	 */
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "Produto_Categoria", 
 				joinColumns = @JoinColumn(name = "idProduto"),
 				inverseJoinColumns = @JoinColumn(name = "idCategoria") )
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="id.produto")
 	private Set<ItemPedido> itens = new HashSet<>();
 	
@@ -53,6 +54,7 @@ public class Produto implements Serializable {
 		this.preco = preco;
 	}
 	
+	@JsonIgnore
 	public List<Pedido> getPedidos(){
 		List<Pedido> lista = new ArrayList<>();
 		for (ItemPedido x : itens ) {

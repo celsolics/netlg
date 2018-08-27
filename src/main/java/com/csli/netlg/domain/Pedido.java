@@ -27,7 +27,6 @@ public class Pedido implements Serializable {
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="pedido")/* para evitar erro entidade transiente, peculariedade do JPA*/
 	private Pagamento pagamento;	
 	
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
@@ -44,6 +43,8 @@ public class Pedido implements Serializable {
 	public Pedido(Integer id, Date instante, Cliente cliente, Endereco endereco) {
 		super();
 		this.id = id;
+		
+		@JsonFormat(pattern="dd/MM/yyyy HH:mm")
 		this.instante = instante;
 		this.cliente = cliente;
 		this.endereco = endereco;

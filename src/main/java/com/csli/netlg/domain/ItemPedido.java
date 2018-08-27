@@ -11,6 +11,7 @@ public class ItemPedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@JsonIgnore
 	@EmbeddedId /** Especifica um id embutido em uma tipo auxiliar **/
 	private ItemPedidoPK id = new ItemPedidoPK();
 	
@@ -29,6 +30,7 @@ public class ItemPedido implements Serializable {
 		this.preco = preco;
 	}
 	
+	@JsonIgnore
 	public Pedido gePedido() {
 		return id.getPedido();
 	}
