@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Pedido implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -22,6 +24,8 @@ public class Pedido implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
 	private Date instante;
 	
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="pedido")/* para evitar erro entidade transiente, peculariedade do JPA*/
@@ -43,8 +47,6 @@ public class Pedido implements Serializable {
 	public Pedido(Integer id, Date instante, Cliente cliente, Endereco endereco) {
 		super();
 		this.id = id;
-		
-		@JsonFormat(pattern="dd/MM/yyyy HH:mm")
 		this.instante = instante;
 		this.cliente = cliente;
 		this.endereco = endereco;

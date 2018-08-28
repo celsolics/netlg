@@ -2,6 +2,8 @@ package com.csli.netlg.resources.exception;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class StandardError implements Serializable {
 	
 	/**
@@ -11,6 +13,8 @@ public class StandardError implements Serializable {
 	
 	private Integer status;
 	private String msg;
+	
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Long timeStamp;
 	
 	public StandardError(Integer status, String msg, Long timeStamp) {

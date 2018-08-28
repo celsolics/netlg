@@ -26,6 +26,7 @@ import com.csli.netlg.repositories.CidadeRepository;
 import com.csli.netlg.repositories.ClienteRepository;
 import com.csli.netlg.repositories.EnderecoRepository;
 import com.csli.netlg.repositories.EstadoRepository;
+import com.csli.netlg.repositories.ItemPedidoRepository;
 import com.csli.netlg.repositories.PagamentoRepository;
 import com.csli.netlg.repositories.PedidoRepository;
 import com.csli.netlg.repositories.ProdutoRepository;
