@@ -7,6 +7,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.csli.netlg.domain.Categoria;
+import com.csli.netlg.dto.CategoriaDto;
 import com.csli.netlg.repositories.CategoriaRepository;
 import com.csli.netlg.services.exceptions.ObjectNotFoundException;
 
@@ -42,6 +43,19 @@ public class CategoriaService {
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityViolationException("Categoria não pode ser excluida, contem produto(s).");
 		}
+	}
+	
+	public List<Categoria> findAll(){
+		return repo.findAll();
+	}
+	
+	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+		PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repo.findAll(pageRequest);
+	}
+	
+	public Categoria fromDTO(CategoriaDto objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
 	}
 
 }
