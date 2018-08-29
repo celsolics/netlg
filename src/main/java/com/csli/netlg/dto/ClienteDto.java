@@ -3,6 +3,8 @@ package com.csli.netlg.dto;
 import java.io.Serializable;
 
 import com.csli.netlg.domain.Cliente;
+import javax.valitadion.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 public class ClienteDto implements Serializable {
 	
@@ -13,6 +15,9 @@ public class ClienteDto implements Serializable {
 	@NotEmpty(message="Campo Obrigatório")
 	@Length(min=5, max=80, message="Tamanho entre 5 e 80")
 	private String nome;
+	
+	@NotEmpty
+	@Email(message="Email inválido")
 	private String email;
 	
 	public ClienteDto() {

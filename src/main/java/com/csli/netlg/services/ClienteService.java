@@ -41,7 +41,7 @@ public class ClienteService {
 			repo.deleteById(id);
 			
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityViolationException("Cliente não pode ser excluida, contem produto(s).");
+			throw new DataIntegrityViolationException("Cliente não pode ser excluida, contem pedido.");
 		}
 	}
 	
