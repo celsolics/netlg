@@ -2,9 +2,12 @@ package com.csli.netlg.dto;
 
 import java.io.Serializable;
 
-import com.csli.netlg.domain.Cliente;
-import javax.valitadion.constraints.Email;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.csli.netlg.domain.Cliente;
 
 public class ClienteDto implements Serializable {
 	

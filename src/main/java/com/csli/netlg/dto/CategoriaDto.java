@@ -2,6 +2,10 @@ package com.csli.netlg.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.csli.netlg.domain.Categoria;
 
 public class CategoriaDto implements Serializable {

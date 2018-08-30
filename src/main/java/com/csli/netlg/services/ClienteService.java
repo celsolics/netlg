@@ -4,12 +4,18 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.csli.netlg.domain.Cidade;
 import com.csli.netlg.domain.Cliente;
 import com.csli.netlg.domain.Endereco;
 import com.csli.netlg.domain.enums.TipoCliente;
+import com.csli.netlg.dto.ClienteDto;
 import com.csli.netlg.dto.ClienteNewDto;
 import com.csli.netlg.repositories.CidadeRepository;
 import com.csli.netlg.repositories.ClienteRepository;
@@ -72,8 +78,8 @@ public class ClienteService {
 	
 	public Cliente fromDTO(ClienteNewDto objDto) {
 		Cliente cliente = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfouCnpj(), TipoCliente.toEnum(objDto.getTipo()));
-		Cidade cidade = rCidade.findOne(objDto.getCidadeId()); 
-		//Cidade cidade = new Cidade(objDto.getCidadeId(), null, null);
+		//Cidade cidade = rCidade.findById(objDto.getCidadeId()); 
+		Cidade cidade = new Cidade(objDto.getCidadeId(), null, null);
 		Endereco endereco = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), objDto.getBairro(), objDto.getCep(), cliente, cidade);
 		cliente.getEnderecos().add(endereco);
 		cliente.getTelefones().add(objDto.getTelefone1());
@@ -85,6 +91,10 @@ public class ClienteService {
 		}
 		
 		return cliente;
+	}
+	
+	public Cliente fromDtoCliente(ClienteDto objDto) {
+		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail());
 	}
 	
 	private void updateData(Cliente newObj, Cliente obj) {
