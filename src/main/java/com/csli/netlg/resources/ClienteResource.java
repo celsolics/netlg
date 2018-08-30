@@ -11,11 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.csli.netlg.domain.Cliente;
-import com.csli.netlg.domain.Cliente;
 import com.csli.netlg.dto.ClienteDto;
+import com.csli.netlg.dto.ClienteNewDto;
 import com.csli.netlg.services.ClienteService;
-
-import javassist.tools.rmi.ObjectNotFoundException;
+import com.csli.netlg.services.exceptions.ObjectNotFoundException;
 
 @RestController
 @RequestMapping(value="/clientes") //endpoint
@@ -33,7 +32,7 @@ public class ClienteResource {
 	
 	/** @RequestBody essa anotação converte o json em objeto java automaticamente */
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody ClienteDto objDto){
+	public ResponseEntity<Void> insert(@RequestBody ClienteNewDto objDto){
 		Cliente obj = service.fromDTO(objDto);
 		obj  = service.insert(obj);
 		uri = ServletUriComponentsBuilder

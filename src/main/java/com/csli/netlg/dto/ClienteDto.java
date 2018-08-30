@@ -19,6 +19,7 @@ public class ClienteDto implements Serializable {
 	@NotEmpty
 	@Email(message="Email inválido")
 	private String email;
+	private String cpfouCnpj;
 	
 	public ClienteDto() {
 		
@@ -55,4 +56,12 @@ public class ClienteDto implements Serializable {
 		this.email = email;
 	}
 
+	public String getCpfouCnpj() {
+		return cpfouCnpj;
+	}
+
+	public void setCpfouCnpj(String cpfouCnpj) {
+		this.cpfouCnpj = cpfouCnpj;
+	}
+	
 }
