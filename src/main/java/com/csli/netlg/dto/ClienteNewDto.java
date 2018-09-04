@@ -28,17 +28,6 @@ public class ClienteNewDto implements Serializable {
 		
 	}
 	
-	public ClienteNewDto(String nome, String email, String cpfOuCnpj, Integer tipo,
-			String logradouro, String numero, String complemento, String bairro,
-			String cep, String tele1, String tele2, String tele3) {
-		
-		this.nome = nome;
-		this.email = email;
-		this.cpfouCnpj = cpfOuCnpj;
-		this.tipo = tipo;
-		this.logradouro = logradouro;		
-	}
-
 	public String getNome() {
 		return nome;
 	}

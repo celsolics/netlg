@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +39,7 @@ public class ClienteResource {
 	
 	/** @RequestBody essa anotação converte o json em objeto java automaticamente */
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody ClienteNewDto objDto){
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDto objDto){
 		Cliente obj = service.fromDTO(objDto);
 		obj  = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder
@@ -48,7 +50,7 @@ public class ClienteResource {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Void> update(@RequestBody ClienteDto objDto, @PathVariable Integer id){
-		Cliente obj = service.fromDtoCliente(objDto);
+		Cliente obj = service.fromDto(objDto);
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();

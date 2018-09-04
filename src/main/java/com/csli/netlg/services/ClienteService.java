@@ -17,7 +17,6 @@ import com.csli.netlg.domain.Endereco;
 import com.csli.netlg.domain.enums.TipoCliente;
 import com.csli.netlg.dto.ClienteDto;
 import com.csli.netlg.dto.ClienteNewDto;
-import com.csli.netlg.repositories.CidadeRepository;
 import com.csli.netlg.repositories.ClienteRepository;
 import com.csli.netlg.repositories.EnderecoRepository;
 import com.csli.netlg.services.exceptions.ObjectNotFoundException;
@@ -33,8 +32,6 @@ public class ClienteService {
 	@Autowired
 	private EnderecoRepository rEndereco;
 	
-	@Autowired
-	private CidadeRepository rCidade;
 	
 	public Cliente find(Integer id) throws ObjectNotFoundException {
 		Optional<Cliente> obj = rCliente.findById(id);
@@ -53,8 +50,7 @@ public class ClienteService {
 	public Cliente update(Cliente obj) {
 		Cliente newObj = find(obj.getId());
 		updateData(newObj, obj);
-		find(obj.getId());
-		return rCliente.save(obj);
+		return rCliente.save(newObj);
 	}
 	
 	public void delete(Integer id) {
@@ -72,13 +68,12 @@ public class ClienteService {
 	}
 	
 	public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
-		PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return rCliente.findAll(pageRequest);
 	}
 	
 	public Cliente fromDTO(ClienteNewDto objDto) {
 		Cliente cliente = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfouCnpj(), TipoCliente.toEnum(objDto.getTipo()));
-		//Cidade cidade = rCidade.findById(objDto.getCidadeId()); 
 		Cidade cidade = new Cidade(objDto.getCidadeId(), null, null);
 		Endereco endereco = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), objDto.getBairro(), objDto.getCep(), cliente, cidade);
 		cliente.getEnderecos().add(endereco);
@@ -93,8 +88,8 @@ public class ClienteService {
 		return cliente;
 	}
 	
-	public Cliente fromDtoCliente(ClienteDto objDto) {
-		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail());
+	public Cliente fromDto(ClienteDto objDto) {
+		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null);
 	}
 	
 	private void updateData(Cliente newObj, Cliente obj) {

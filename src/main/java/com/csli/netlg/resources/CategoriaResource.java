@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -35,9 +37,11 @@ public class CategoriaResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	/** @RequestBody essa anotação converte o json em objeto java automaticamente */
+	/** @RequestBody essa anotação converte o json em objeto java automaticamente 
+	 * @Valid declarado no parametro do metodo para verificar as validações feitas no CategoriaDto por anotação
+	 * */
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody CategoriaDto objDto){
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDto objDto){
 		Categoria obj = service.fromDTO(objDto);
 		obj  = service.insert(obj);
 		uri = ServletUriComponentsBuilder
@@ -47,7 +51,7 @@ public class CategoriaResource {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody CategoriaDto objDto, @PathVariable Integer id){
+	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDto objDto, @PathVariable Integer id){
 		Categoria obj = service.fromDTO(objDto);
 		obj.setId(id);
 		obj = service.update(obj);
@@ -70,10 +74,10 @@ public class CategoriaResource {
 	
 	@RequestMapping(value="/page", method=RequestMethod.GET) //verbos http
 	public ResponseEntity<Page<CategoriaDto>> findPage(
-			@RequestParam(value="page", defaultValue = "0") Integer page, 
-			@RequestParam(value="linesPerPage", defaultValue = "24") Integer linesPerPage, 
-			@RequestParam(value="orderBy", defaultValue = "nome") String orderBy, 
-			@RequestParam(value="direction", defaultValue = "ASC") String direction) {
+			@RequestParam(value="page", defaultValue="0") Integer page, 
+			@RequestParam(value="linesPerPage", defaultValue ="24") Integer linesPerPage, 
+			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
+			@RequestParam(value="direction", defaultValue="ASC") String direction) {
 		Page<Categoria> lista = service.findPage(page, linesPerPage, orderBy, direction);
 		/** Converte uma lista de categoria em uma lista DTO, seguido do construtor CategoriaDto que recebe uma Categoria como parametro*/
 		Page<CategoriaDto> listaDto = lista.map(obj ->  new CategoriaDto(obj));
